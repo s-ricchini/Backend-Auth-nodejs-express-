@@ -1,4 +1,8 @@
-import express from 'express'
+import express, {json} from 'express'
+import dotenv from 'dotenv'
+import { pool } from './db/conection.js'
+
+dotenv.config()
 
 const app = express()
 
@@ -13,3 +17,10 @@ app.get('/', async (req,res) => {
 app.listen(PORT,() => {
     console.log("Server running at port: ",PORT)
 })
+
+async function pureba() {
+    const [rows] =  await pool.query('SELECT * from users');
+    console.log([rows])
+}
+
+pureba()
